@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nature Dub</title>
+  <script src="https://use.fontawesome.com/6bab5b5eb8.js"></script>
+  <link rel="stylesheet" href="nature-dub.css">
+</head>
+<body>
+
+  <header>
+    <h1>Nature Dub</h1>
+  </header>
+
+  <div class="container">
+    <div class="tile" data-sound="big-anemone-geyser">
+      <i class="fa fa-play fa-5x" aria-hidden="true"></i>
+      <img src="images/big_anemone_geyser.jpg" alt="Big Anemone Geyser" data-sound="big-anemone-geyser" class="nature-image">
+      
+    </div>
+    <div class="tile" data-sound="bison">
+        <i class="fa fa-play fa-5x" aria-hidden="true"></i>
+      <img src="images/bison.jpg" alt="Bison" data-sound="bison" class="nature-image">
+    </div>
+    <div class="tile" data-sound="chorus-frogs">
+        <i class="fa fa-play fa-5x" aria-hidden="true"></i>
+      <img src="images/chorus_frogs.jpg" alt="Chorus Frogs" data-sound="chorus-frogs" class="nature-image">
+    </div>
+    <div class="tile" data-sound="loon">
+        <i class="fa fa-play fa-5x" aria-hidden="true"></i>
+        <img src="images/common_loon.jpg" alt="Common Loon" data-sound="loon" class="nature-image">
+      </div>
+    <div class="tile" data-sound="coyote">
+        <i class="fa fa-play fa-5x" aria-hidden="true"></i>
+      <img src="images/coyote.jpg" alt="Coyote" data-sound="coyote" class="nature-image">
+    </div>
+    <div class="tile" data-sound="fire">
+        <i class="fa fa-play fa-5x" aria-hidden="true"></i>
+      <img src="images/fire.jpg" alt="Fire" data-sound="fire" class="nature-image">
+    </div>
+    <div class="tile" data-sound="grizzly-bear">
+        <i class="fa fa-play fa-5x" aria-hidden="true"></i>
+      <img src="images/grizzly_bear.jpg" alt="Grizzly Bear" data-sound="grizzly-bear" class="nature-image">
+    </div>
+    <div class="tile" data-sound="magpie">
+        <i class="fa fa-play fa-5x" aria-hidden="true"></i>
+      <img src="images/magpie.jpg" alt="Magpie" data-sound="magpie" class="nature-image">
+    </div>
+  </div>
+
+  <audio loop src="sounds/big_anemone_geyser.mp3" data-sound="big-anemone-geyser"></audio>
+  <audio loop src="sounds/bison.mp3" data-sound="bison"></audio>
+  <audio loop src="sounds/chorus_frogs.mp3" data-sound="chorus-frogs"></audio>
+  <audio loop src="sounds/common_loon.mp3" data-sound="loon"></audio>
+  <audio loop src="sounds/coyotes.mp3" data-sound="coyote"></audio>
+  <audio loop src="sounds/fire.mp3" data-sound="fire"></audio>
+  <audio loop src="sounds/grizzly_bear.mp3" data-sound="grizzly-bear"></audio>
+  <audio loop src="sounds/magpie.mp3" data-sound="magpie"></audio>
+
+  <script>
+    
+    function playSound() {
+
+      //adds class to tile for CSS border/animation/etc
+      this.classList.add('playing');
+            
+      const sound = this.getAttribute('data-sound');
+      const audio = document.querySelector(`audio[data-sound="${sound}"]`);
+      if (!audio) return;
+  
+      //changes play/pause icon
+      const icon = this.querySelector('i');
+      icon.classList.remove('fa-play');
+      icon.classList.add('fa-pause');
+
+      //plays audio
+      audio.currentTime = 0;
+      audio.play();
+    }
+  
+    //Event listener for each image tile
+    const tiles = Array.from(document.querySelectorAll('.tile'));
+    tiles.forEach(tile => tile.addEventListener('click', playSound));
+    
+  </script>
+
+</body>
+
