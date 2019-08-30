@@ -17,7 +17,6 @@
     <div class="tile" data-sound="big-anemone-geyser">
       <i class="fa fa-play fa-5x" aria-hidden="true"></i>
       <img src="images/big_anemone_geyser.jpg" alt="Big Anemone Geyser" data-sound="big-anemone-geyser" class="nature-image">
-      
     </div>
     <div class="tile" data-sound="bison">
         <i class="fa fa-play fa-5x" aria-hidden="true"></i>
@@ -59,18 +58,28 @@
   <audio loop src="sounds/magpie.mp3" data-sound="magpie"></audio>
 
   <script>
+
+    function handleClick() {
+      const tile = this;
+      //checks to see if sound is playing or not
+      if (this.classList.contains('playing')) {
+        pauseSound(tile);
+      } else {
+        playSound(tile);
+      }
+    }
     
-    function playSound() {
+    function playSound(tile) {
 
       //adds class to tile for CSS border/animation/etc
-      this.classList.add('playing');
+      tile.classList.add('playing');
             
-      const sound = this.getAttribute('data-sound');
+      const sound = tile.getAttribute('data-sound');
       const audio = document.querySelector(`audio[data-sound="${sound}"]`);
       if (!audio) return;
   
       //changes play/pause icon
-      const icon = this.querySelector('i');
+      const icon = tile.querySelector('i');
       icon.classList.remove('fa-play');
       icon.classList.add('fa-pause');
 
@@ -79,9 +88,27 @@
       audio.play();
     }
   
+    function pauseSound(tile) {
+
+      //removes class from tile for CSS border/animation/etc
+      tile.classList.remove('playing');
+            
+      const sound = tile.getAttribute('data-sound');
+      const audio = document.querySelector(`audio[data-sound="${sound}"]`);
+      if (!audio) return;
+  
+      //changes play/pause icon
+      const icon = tile.querySelector('i');
+      icon.classList.remove('fa-pause');
+      icon.classList.add('fa-play');
+
+      //pauses audio
+      audio.pause();
+    }
+  
     //Event listener for each image tile
     const tiles = Array.from(document.querySelectorAll('.tile'));
-    tiles.forEach(tile => tile.addEventListener('click', playSound));
+    tiles.forEach(tile => tile.addEventListener('click', handleClick));
     
   </script>
 
